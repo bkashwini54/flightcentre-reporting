@@ -1,0 +1,125 @@
+package ngrp.reporting.dsl
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-QI-001 [QI-QUALITY] Quality index calculation for a single invoice
+// HISTORY:
+// - 2019-02-07 - Initial system rule (don't delete)
+// - 2019-10-21 - Modified by Ashwini // Testing #NGDEFECT-215
+// - 2019-11-22 - Modified by Sotiris // NGDEFECT-215,237 Defined a 2digit accuracy for QI (3digits for factors) 
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-QI-001B [QI-QUALITY] Quality index calculation for a single invoice"
+    salience -9999999 // Ensure last rule to run
+    when
+        There is a financial 'Container'
+        There is a 'Quality Status'
+        - with 'critical errors' not flagged
+        - with 'validity error weight' as @validityErrorWeight
+        - with 'accuracy error weight' as @accuracyErrorWeight
+        There is a 'Document'
+        - with 'number of services' as @numServices
+        - with 'created on' as @created
+        - with 'received on' as @received
+        There is a 'Quality Metrics'
+    then
+        //================================================================================
+        // Calculating qv, qa and qt
+        //================================================================================
+        double @qv = max(0, Math.round((1.0 - @validityErrorWeight/100.0/max(1, @numServices))*1000)/1000)
+        double @qa = max(0, Math.round((1.0 - @accuracyErrorWeight/100.0/max(1, @numServices))*1000)/1000)
+        double @qt = max(0, Math.round((Duration.between(@created, @received).getSeconds() / 86400.000)*1000)/1000)
+        // double @qt = max(0, Duration.between((Instant.parse(@created+"T00:00:00Z")),(Instant.parse(@received+"T00:00:00Z"))).getSeconds() / 86400.0)
+
+        Set 'quality validity' in 'Quality Metrics' with @qv
+        Set 'quality accuracy' in 'Quality Metrics' with @qa
+        Set 'quality timeliness' in 'Quality Metrics' with @qt
+
+        //================================================================================
+        // Formula can be changed - Note: weight(qv) + weight(qa) must be 10
+        //================================================================================
+        // No Decrease: For the first 38 days (weekly submission - @qt ignored)
+        // Slow Decrease: Drop 1 quality index point for the following 28 days (monthly submissions)
+        // Fast Decrease: Drop 1 quality index point for every additional 5 day (late submissions)
+        //================================================================================
+        double noDecreaseDays = 38.000
+        double slowDecreaseDays = 28.000
+        double slowDecreaseFactor = Math.round(1.0/slowDecreaseDays*1000)/1000
+        double fastDecreaseFactor = Math.round((1.0/5.0)*1000)/1000
+        double calculatedQI = 6.0*@qv + 4.0*@qa - (@qt <= noDecreaseDays ? 0 : @qt <= (noDecreaseDays+slowDecreaseDays) ? (@qt-noDecreaseDays)*slowDecreaseFactor : slowDecreaseDays*slowDecreaseFactor + (@qt-noDecreaseDays-slowDecreaseDays)*fastDecreaseFactor)
+        double @qi = max(0, Math.round(calculatedQI*100)/100)
+
+        Set 'quality index' in 'Quality Metrics' with @qi
+end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: RES-QI-001 [QI-QUALITY] Quality index calculation for a single reservation
+// HISTORY:
+// - 2019-02-07 - Initial system rule (don't delete)
+// - 2019-10-21 - Commented by Ashwini, Reservation rules not required in Finance
+//--------------------------------------------------------------------------------------------------------------------
+//rule "RES-QI-001 [QI-QUALITY] Quality index calculation for a single reservation"
+//    salience -9999999 // Ensure last rule to run
+//    when
+//        There is a reservation 'Container'
+//        There is a 'Quality Status'
+//        - with 'critical errors' not flagged
+//        - with 'validity error weight' as @validityErrorWeight
+//        - with 'accuracy error weight' as @accuracyErrorWeight
+//        There is a 'Document'
+//        - with 'number of services' as @numServices
+//        - with 'created on' as @created
+//        - with 'received on' as @received
+//        There is a 'Quality Metrics'
+//    then
+//        //================================================================================
+//        // Calculating qv, qa and qt
+//        //================================================================================
+//        double @qv = max(0, 1.0 - @validityErrorWeight/100.0/max(1, @numServices))
+//        double @qa = max(0, 1.0 - @accuracyErrorWeight/100.0/max(1, @numServices))
+//        double @qt = max(0, Duration.between(@created, @received).getSeconds() / 86400.0)
+//        Set 'quality validity' in 'Quality Metrics' with @qv
+//        Set 'quality accuracy' in 'Quality Metrics' with @qa
+//        Set 'quality timeliness' in 'Quality Metrics' with @qt
+//
+//        //================================================================================
+//        // Formula can be changed - Note: weight(qv) + weight(qa) must be 10
+//        //================================================================================
+//        // No Decrease: For the first 4 hours (@qt ignored)
+//        // Slow Decrease: Drop 1 quality index point for the following 4 hours
+//        // Fast Decrease: Drop 1 quality index point for every additional 2 hours
+//        //================================================================================
+//        double noDecreaseDays = 4/24.0
+//        double slowDecreaseDays = 28/24.0
+//        double slowDecreaseFactor = 1.0/slowDecreaseDays
+//        double fastDecreaseFactor = 1.0/(2/24.0)
+//        double @qi = max(0, 6*@qv + 4*@qa - (@qt <= noDecreaseDays ? 0 : @qt <= (noDecreaseDays+slowDecreaseDays) ? (@qt-noDecreaseDays)*slowDecreaseFactor : slowDecreaseDays*slowDecreaseFactor + (@qt-noDecreaseDays-slowDecreaseDays)*fastDecreaseFactor))
+//        Set 'quality index' in 'Quality Metrics' with @qi
+//end
+
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: RES-QI-001 [QI-QUALITY] Quality index calculation for a single reservation
+// HISTORY:
+// - 2019-02-07 - Initial system rule (don't delete)
+//--------------------------------------------------------------------------------------------------------------------
+//rule "RES-QI-002 [QI-QUALITY] Quality timeliness calculation for a single reservation with critical errors"
+  //  salience -9999999 // Ensure last rule to run
+  //  when
+  //      There is a reservation 'Container'
+  //      There is a 'Quality Status'
+  //      - with 'critical errors' flagged
+   //     - with 'validity error weight' as @validityErrorWeight
+  //      - with 'accuracy error weight' as @accuracyErrorWeight
+  //      There is a 'Document'
+  //      - with 'number of services' as @numServices
+  //      - with 'created on' as @created
+  //      - with 'received on' as @received
+  //      There is a 'Quality Metrics'
+  //  then
+        //================================================================================
+        // Calculating qv, qa and qt
+        //================================================================================
+    
+ //       double @qt = max(0, Duration.between(@created, @received).getSeconds() / 86400.0)
+ //       Set 'quality timeliness' in 'Quality Metrics' with @qt
+
+//end

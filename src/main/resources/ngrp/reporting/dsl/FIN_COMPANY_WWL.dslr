@@ -1,0 +1,55 @@
+package ngrp.reporting.dsl
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-R003 [WWL] Reporting mappings Break and Udids for MNC (no US/CA)
+// HISTORY:
+// - 2019-02-07 - Initial version
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-R003 [WWL] Reporting mappings Break and Udids for MNC (no US/CA)"
+    when
+        There is a financial 'Container'
+        There is a 'Source System'
+        - with 'market' not in ("US", "CA")
+        There is a 'Booking'
+        - with 'company name' equals "WWL"
+        There is an 'Invoice'
+        There is an 'Invoice Line'
+        There is an 'Invoice Service'
+        There is a 'Traveller'
+    then
+        Set 'reporting ref 1' with 'traveller ref 1' in 'Traveller'
+        Set 'reporting ref 2' with 'traveller ref 2' in 'Traveller'
+        Set 'reporting ref 3' with 'traveller ref 3' in 'Traveller'
+        Set 'reporting ref 4' with 'invoice ref 4' in 'Invoice'
+        Set 'reporting ref 5' with 'invoice ref 1' in 'Invoice'
+        Set 'reporting ref 6' with 'invoice ref 2' in 'Invoice'
+        Set 'reporting ref 7' with 'invoice ref 3' in 'Invoice'
+        Set 'reporting ref 8' with 'invoice ref 5' in 'Invoice'
+end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-R004 [WWL] Reporting mappings Break and Udids for US/CA
+// HISTORY:
+// - 2019-02-07 - Initial version
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-R004 [WWL] Reporting mappings Break and Udids for US/CA"
+    when
+        There is a financial 'Container'
+        There is a 'Source System'
+        - with 'market' in ("US", "CA")
+        There is a 'Booking'
+        - with 'company name' equals "WWL"
+        There is an 'Invoice'
+        There is an 'Invoice Line'
+        There is an 'Invoice Service'
+        There is a 'Traveller'
+    then
+        Set 'reporting ref 1' with 'traveller ref 1' in 'Traveller'
+        Set 'reporting ref 2' with 'traveller ref 2' in 'Traveller'
+        Set 'reporting ref 3' with 'traveller ref 3' in 'Traveller'
+        Set 'reporting ref 4' with 'traveller ref 4' in 'Traveller'
+        Set 'reporting ref 5' with 'invoice ref 1' in 'Invoice'
+        Set 'reporting ref 6' with 'invoice ref 2' in 'Invoice'
+        Set 'reporting ref 7' with 'invoice ref 3' in 'Invoice'
+        Set 'reporting ref 8' with 'invoice ref 4' in 'Invoice'
+end

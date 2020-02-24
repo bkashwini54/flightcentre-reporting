@@ -1,0 +1,133 @@
+package ngrp.reporting.dsl
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-WPPValidation [WPP] Validation of reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-10 - Initial version
+// - 2019-10-09 - Modified the error message from "Break1 is not an existing value" to "Break1 is not recognized or registered" --NGDEFECT-327  
+//--------------------------------------------------------------------------------------------------------------------
+// rule "FIN-REP-WPPValidation [WPP] Reporting mappings for extended breaks"
+// salience 499
+//      when
+//          There is a financial 'Container'
+//          - with 'submission category' as @submissionCategory
+//          There is a 'Booking'
+//          - with 'company name' not empty
+//          - with 'company name' in ("WPP")
+//          - with 'company name' as @companyName
+//          There is an 'Invoice'
+//          - with 'date sensitivity' as @ds
+//          There is an 'Invoice Line'
+//          There is an 'Invoice Service'
+//          There is a 'Traveller'
+//          - with 'traveller ref 1' not empty
+//          - with 'traveller ref 1' not exists in "EBM" with date sensitivity @ds filtered by @companyName
+//      then
+//         If @submissionCategory not equals "TCFILES" then
+//             Mark 'traveller ref 1' in 'Traveller' with 'Warning' because "TravellerRef1 is not recognized or registered."
+//         Else
+//           Mark 'traveller ref 1' in 'Traveller' alias "TCTRIPS.BREAK1" with 'Warning' because "BREAK1 is not recognized or registered."
+//         End
+        
+// end
+
+// //--------------------------------------------------------------------------------------------------------------------
+// // RULE: FIN-REP-WPPTraveller [WPP] Reporting mappings for extended breaks
+// // HISTORY:
+// // - 2019-07-10 - Initial version
+// //--------------------------------------------------------------------------------------------------------------------
+// rule "FIN-REP-WPPTraveller [WPP] Reporting mappings for extended breaks"
+// salience 498
+//     when
+//          There is a financial 'Container'
+//          There is a 'Booking'
+//          - with 'company name' not empty
+//          - with 'company name' in ("WPP")
+//          - with 'company name' as @companyName
+//          There is an 'Invoice'
+//          - with 'date sensitivity' as @ds
+//          There is an 'Invoice Line'
+//          There is an 'Invoice Service'
+//          There is a 'Traveller'
+//          - with 'traveller ref 1' not empty
+//          - with 'traveller ref 1' exists in "EBM" with date sensitivity @ds filtered by @companyName
+//          - with 'traveller ref 1' as @travellerRef1
+//      then
+//          Set 'traveller ref 9' in 'Traveller' with translate @travellerRef1 using "EBM" with date sensitivity @ds filtered by @companyName
+// end
+
+// //--------------------------------------------------------------------------------------------------------------------
+// // RULE: FIN-REP-WPPReporting [WPP] Reporting mappings for extended breaks
+// // HISTORY:
+// // - 2019-07-10 - Initial version
+// //--------------------------------------------------------------------------------------------------------------------
+// rule "FIN-REP-WPPReporting [WPP] Reporting mappings for extended breaks"
+// salience 497
+//     when
+//          There is a financial 'Container'
+//          There is a 'Booking'
+//          - with 'company name' not empty
+//          - with 'company name' in ("WPP")
+//          - with 'company name' as @companyName
+//          There is an 'Invoice'
+//          - with 'date sensitivity' as @ds
+//          There is an 'Invoice Line'
+//          There is an 'Invoice Service'
+//          There is a 'Traveller'
+//          - with 'traveller ref 1' not empty
+//          - with 'traveller ref 1' exists in "EBM" with date sensitivity @ds filtered by @companyName
+//          - with 'traveller ref 9' not empty
+//          - with 'traveller ref 9' as @travellerRef9
+//      then
+//          Set 'reporting ref 9' with @travellerRef9
+// end
+
+// --------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-EBM-WPP-1 [WPP] Reporting mappings Break and Udids for non US/CA
+// HISTORY:
+// - 2020-02-12 - Initial version 
+// - 2020-02-20 Created by Hardik, This rule need to be fire before the EBM-WPP-2
+// --------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-EBM-WPP-1 [WPP] Reporting mappings Break and Udids for non US/CA"
+ salience -1
+    when
+        There is a financial 'Container'
+        There is a 'Source System'
+        - with 'market' not in ("US", "CA")
+        There is a 'Booking'
+        - with 'company name' in ("WPP")
+        There is an 'Invoice'
+        There is an 'Invoice Line'
+        There is an 'Invoice Service'
+        There is a 'Traveller'
+    then
+        Set 'reporting ref 1' with 'traveller ref 1' in 'Traveller'
+        Set 'reporting ref 2' with 'traveller ref 2' in 'Traveller'
+        Set 'reporting ref 3' with 'traveller ref 3' in 'Traveller'
+        Set 'reporting ref 4' with 'invoice ref 4' in 'Invoice'
+        Set 'reporting ref 5' with 'invoice ref 1' in 'Invoice'
+        Set 'reporting ref 6' with 'invoice ref 2' in 'Invoice'
+        Set 'reporting ref 7' with 'invoice ref 3' in 'Invoice'
+        Set 'reporting ref 8' with 'invoice ref 5' in 'Invoice'
+end
+
+// --------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-EBM-WPP-2 [WPP] Standardised reporting ref using EBM
+// HISTORY:
+// - 2020-02-12 - Initial version 
+// - 2020-02-20 Created by Hardik, This rule need to be fire before the EBM-WPP-1 
+// --------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-EBM-WPP-2 Standardised reporting ref using EBM"
+ salience -2
+    when
+         There is a financial 'Container'
+         There is a 'Booking'
+          - with 'company name' not empty
+          - with 'company name' in ("WPP")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+     then
+         Standardised reporting ref using EBM
+end

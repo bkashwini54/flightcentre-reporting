@@ -1,0 +1,992 @@
+package ngrp.reporting.dsl
+
+// --------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelP1 [Parexel] Reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-11 - Initial version ===== ADDED FOR TESTING ++++
+// --------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-ParexelP1 [Parexel] Reporting mappings for extended breaks"
+salience -1
+     when
+         There is a financial 'Container'
+         There is a 'Booking'
+         - with 'company name' in ("Parexel")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+         - with 'traveller ref 1' not empty
+         - with 'traveller ref 1' matches "^[0-9]{3}$"
+         - with 'traveller ref 1' as @travellerRef1
+     then
+         Set 'reporting ref 9' with @travellerRef1
+end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelP2 [Parexel] Reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-11 - Initial version
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-ParexelP2 [Parexel] Reporting mappings for extended breaks"
+salience -2
+     when
+         There is a financial 'Container'
+         There is a 'Booking'
+         - with 'company name' in ("Parexel")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+         - with 'traveller ref 2' not empty
+         - with 'traveller ref 2' matches "^[0-9]{6}$"
+         - with 'traveller ref 2' as @travellerRef2
+     then
+         Set 'reporting ref 10' with @travellerRef2
+end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelP3 [Parexel] Reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-11 - Initial version
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-ParexelP3 [Parexel] Reporting mappings for extended breaks"
+salience -3
+     when
+         There is a financial 'Container'
+         There is a 'Booking'
+         - with 'company name' in ("Parexel")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+         - with 'traveller ref 3' not empty
+         - with 'traveller ref 3' matches "^[0-9]{4,8}$"
+         - with 'traveller ref 3' as @travellerRef3
+     then
+         Set 'reporting ref 11' with @travellerRef3
+end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelP4 [Parexel] Reporting mappings for extended breaks         
+// HISTORY:
+// - 2019-07-11 - Initial version
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-ParexelP4 [Parexel] Reporting mappings for extended breaks"       //TODO
+salience -4
+     when
+         There is a financial 'Container'
+         There is a 'Booking'
+         - with 'company name' in ("Parexel")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+         - with 'traveller ref 8' not empty
+         - with 'traveller ref 8' matches "^[0][0-9]*$"
+         - with 'traveller ref 8' as @travellerRef8
+         
+     then
+         String val = @travellerRef8.replaceFirst("^0+(?!$)", "");
+         Set 'reporting ref 12' with val
+end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelP5 [Parexel] Reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-11 - Initial version
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-ParexelP5 [Parexel] Reporting mappings for extended breaks"
+salience -5
+     when
+         There is a financial 'Container'
+         There is a 'Booking'
+         - with 'company name' in ("Parexel")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+         - with 'traveller ref 5' not empty
+         - with 'traveller ref 5' matches "^[YN]{1}$"
+         - with 'traveller ref 5' as @travellerRef5
+     then
+         Set 'reporting ref 13' with @travellerRef5
+end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelP6 [Parexel] Reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-11 - Initial version
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-ParexelP6 [Parexel] Reporting mappings for extended breaks"
+salience -6
+     when
+         There is a financial 'Container'
+         There is a 'Booking'
+         - with 'company name' in ("Parexel")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+         - with 'traveller ref 6' not empty
+         - with 'traveller ref 6' matches "^[0-9]{6}$"
+         - with 'traveller ref 6' as @travellerRef6
+     then
+         Set 'reporting ref 14' with @travellerRef6
+end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelP7 [Parexel] Reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-11 - Initial version
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-ParexelP7 [Parexel] Reporting mappings for extended breaks"
+salience -7
+     when
+         There is a financial 'Container'
+         There is a 'Booking'
+         - with 'company name' in ("Parexel")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+         - with 'traveller ref 7' not empty
+         - with 'traveller ref 7' in ("CCS","CORP","CRS","MSS","PII")
+         - with 'traveller ref 7' as @travellerRef7
+     then
+         Set 'reporting ref 15' with @travellerRef7
+end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelP8 [Parexel] Reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-11 - Initial version
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-ParexelP8 [Parexel] Reporting mappings for extended breaks"
+salience -8
+     when
+         There is a financial 'Container'
+         There is a 'Booking'
+         - with 'company name' in ("Parexel")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+         - with 'traveller ref 5' empty OR 'traveller ref 5' in ("NA", "NOT PROVIDED", "CRS", "CORP","T","CUTULI IVAN","y++") OR 'traveller ref 5' matches "^[0-9]+$"
+         - with 'traveller ref 1' not in ("N", "NON", "YES", "Y") OR 'traveller ref 6' not in ("N", "NON", "YES", "Y")
+     then
+         Set 'reporting ref 13' with null
+end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelP9 [Parexel] Reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-11 - Initial version
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-ParexelP9 [Parexel] Reporting mappings for extended breaks"
+salience -9
+     when
+         There is a financial 'Container'
+         There is a 'Booking'
+         - with 'company name' in ("Parexel")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+         - with 'traveller ref 5' not empty
+         - with 'traveller ref 5' in ("NA", "NOT PROVIDED", "CRS", "CORP") OR 'traveller ref 5' matches "^[0-9]+$"
+         - with 'traveller ref 1' not empty
+         - with 'traveller ref 1' in ("N")
+         - with 'traveller ref 2' in ("N", "NON") OR 'traveller ref 6' not in ("N", "NON")
+     then
+         Set 'reporting ref 13' with "N"
+end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelP10 [Parexel] Reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-11 - Initial version
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-ParexelP10 [Parexel] Reporting mappings for extended breaks"
+salience -10
+     when
+         There is a financial 'Container'
+         There is a 'Booking'
+         - with 'company name' in ("Parexel")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+         - with 'traveller ref 5' not empty
+         - with 'traveller ref 5' in ("NA", "NOT PROVIDED", "CRS", "CORP","OTHER", "MONITORING%") OR 'traveller ref 5' matches "^[0-9]+$"
+         - with 'traveller ref 6' not empty
+         - with 'traveller ref 6' in ("Y","YES")
+     then
+         Set 'reporting ref 13' with "Y"
+end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelP11 [Parexel] Reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-11 - Initial version
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-ParexelP11 [Parexel] Reporting mappings for extended breaks"
+salience -11
+     when
+         There is a financial 'Container'
+         There is a 'Booking'
+         - with 'company name' in ("Parexel")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+         - with 'traveller ref 1' not empty
+         - with 'traveller ref 1' matches "^[0-9]{6}$"
+         - with 'traveller ref 2' not empty
+         - with 'traveller ref 2' matches "^[0-9]{6}$"
+         - with 'traveller ref 2' as @travellerRef2
+     then
+         String val = @travellerRef2.substring(0,3);
+         Set 'reporting ref 9' with val
+end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelP12 [Parexel] Reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-11 - Initial version
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-ParexelP12 [Parexel] Reporting mappings for extended breaks"
+salience -12
+     when
+         There is a financial 'Container'
+         There is a 'Booking'
+         - with 'company name' in ("Parexel")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+         - with 'traveller ref 1' empty OR 'traveller ref 1' matches "^[A-Z]+$"
+         - with 'traveller ref 2' not empty
+         - with 'traveller ref 2' matches "^[0-9]{6}$"
+         - with 'traveller ref 2' as @travellerRef2
+     then
+         String val = @travellerRef2.substring(0,3);
+         Set 'reporting ref 9' with val
+end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelP13 [Parexel] Reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-11 - Initial version
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-ParexelP13 [Parexel] Reporting mappings for extended breaks"
+salience -13
+     when
+         There is a financial 'Container'
+         There is a 'Booking'
+         - with 'company name' in ("Parexel")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+         - with 'traveller ref 1' not empty
+         - with 'traveller ref 1' matches "^[0-9]{6}+$"
+         - with 'traveller ref 1' as @travellerRef1
+         - with 'traveller ref 2' not empty
+         - with 'traveller ref 2' not matches "^[0-9]+$"
+     then
+         Set 'reporting ref 10' with @travellerRef1
+end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelP14 [Parexel] Reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-11 - Initial version
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-ParexelP14 [Parexel] Reporting mappings for extended breaks"
+salience -14
+     when
+         There is a financial 'Container'
+         There is a 'Booking'
+         - with 'company name' in ("Parexel")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+         - with 'traveller ref 1' not empty
+         - with 'traveller ref 1' matches "^[0-9]{6}$"
+         - with 'traveller ref 2' not empty
+         - with 'traveller ref 2'  matches "^[A-Z]+$"
+     then
+         Set 'reporting ref 9' with null
+end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelP15 [Parexel] Reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-11 - Initial version
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-ParexelP15 [Parexel] Reporting mappings for extended breaks"
+salience -15
+     when
+         There is a financial 'Container'
+         There is a 'Booking'
+         - with 'company name' in ("Parexel")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+         - with 'traveller ref 6' not empty
+         - with 'traveller ref 6' matches "^[A-Z0-9]+$" OR 'traveller ref 6' matches "^[-][0-9]+$" OR 'traveller ref 6' matches "^[A-Z]+$"
+         - with 'traveller ref 2' not matches "^[2][0-9]{5}$"
+     then
+         Set 'reporting ref 14' with null
+end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelP16 [Parexel] Reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-11 - Initial version
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-ParexelP16 [Parexel] Reporting mappings for extended breaks"
+salience -16
+     when
+         There is a financial 'Container'
+         There is a 'Booking'
+         - with 'company name' in ("Parexel")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+         - with 'traveller ref 6' not empty
+         - with 'traveller ref 6' matches "^[013456789][0-9]*$" OR 'traveller ref 6' matches "^[0-9-]+$" OR 'traveller ref 6' matches "^[A-Z]+$"
+         - with 'traveller ref 2' not empty
+         - with 'traveller ref 2' matches "^[2][0-9]{5}$"
+         - with 'traveller ref 2' as @travellerRef2
+     then
+         Set 'reporting ref 14' with @travellerRef2
+end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelP17 [Parexel] Reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-11 - Initial version
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-ParexelP17 [Parexel] Reporting mappings for extended breaks"
+salience -17
+     when
+         There is a financial 'Container'
+         There is a 'Booking'
+         - with 'company name' in ("Parexel")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+         - with 'traveller ref 6' not empty
+         - with 'traveller ref 6' matches "^[A-Z]+$" OR 'traveller ref 6' matches "^[0-9-]+$"
+         - with 'traveller ref 2' not empty
+         - with 'traveller ref 2' not matches "^[2][0-9]{5}$"
+         - with 'traveller ref 2' as @travellerRef2
+     then
+         Set 'reporting ref 14' with null
+end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelP18 [Parexel] Reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-11 - Initial version
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-ParexelP18 [Parexel] Reporting mappings for extended breaks"
+salience -18
+     when
+         There is a financial 'Container'
+         There is a 'Booking'
+         - with 'company name' in ("Parexel")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+         - with 'traveller ref 1' not empty
+         - with 'traveller ref 1' equals "0"
+     then
+         Set 'reporting ref 9' with "000"
+end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelP19 [Parexel] Reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-11 - Initial version
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-ParexelP19 [Parexel] Reporting mappings for extended breaks"
+salience -19
+     when
+         There is a financial 'Container'
+         There is a 'Booking'
+         - with 'company name' in ("Parexel")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+         - with 'traveller ref 1' not empty
+         - with 'traveller ref 1' matches "^[A-Z]+$" 
+     then
+         Set 'reporting ref 9' with null
+end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelP20 [Parexel] Reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-11 - Initial version
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-ParexelP20 [Parexel] Reporting mappings for extended breaks"
+salience -20
+     when
+         There is a financial 'Container'
+         There is a 'Booking'
+         - with 'company name' in ("Parexel")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+         - with 'traveller ref 1' not empty
+         - with 'traveller ref 1' matches "^[0-9]{2}$" 
+         - with 'traveller ref 1' as @travellerRef1
+     then
+         Set 'reporting ref 9' with "0" + @travellerRef1
+end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelP21 [Parexel] Reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-11 - Initial version
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-ParexelP21 [Parexel] Reporting mappings for extended breaks"
+salience -21
+     when
+         There is a financial 'Container'
+         There is a 'Booking'
+         - with 'company name' in ("Parexel")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+         - with 'traveller ref 1' not empty
+         - with 'traveller ref 1' matches "^[0-9]{4}$" 
+     then
+         Set 'reporting ref 9' with null
+end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelP22 [Parexel] Reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-11 - Initial version
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-ParexelP22 [Parexel] Reporting mappings for extended breaks"
+salience -22
+     when
+         There is a financial 'Container'
+         There is a 'Booking'
+         - with 'company name' in ("Parexel")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+         - with 'traveller ref 1' not empty
+         - with 'traveller ref 1' matches "^[0-9]{3}[;.:][A-Z;:.]+$" 
+         - with 'traveller ref 1' as @travellerRef1
+     then
+         String val = @travellerRef1.substring(0,3);
+         Set 'reporting ref 9' with val
+end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelP23 [Parexel] Reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-11 - Initial version
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-ParexelP23 [Parexel] Reporting mappings for extended breaks"
+salience -23
+     when
+         There is a financial 'Container'
+         There is a 'Booking'
+         - with 'company name' in ("Parexel")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+         - with 'traveller ref 2' empty OR 'traveller ref 2' in ("0", "N", "NA")
+     then
+         Set 'reporting ref 10' with null
+end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelP24 [Parexel] Reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-11 - Initial version
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-ParexelP24 [Parexel] Reporting mappings for extended breaks"
+salience -24
+     when
+         There is a financial 'Container'
+         There is a 'Booking'
+         - with 'company name' in ("Parexel")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+         - with 'traveller ref 2' not empty
+         - with 'traveller ref 2' matches "^[0-9]{4}$"
+     then
+         Set 'reporting ref 10' with null
+end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelP25 [Parexel] Reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-11 - Initial version
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-ParexelP25 [Parexel] Reporting mappings for extended breaks"
+salience -25
+     when
+         There is a financial 'Container'
+         There is a 'Booking'
+         - with 'company name' in ("Parexel")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+         - with 'traveller ref 2' not empty
+         - with 'traveller ref 2' matches "^[0-9]{5}$"
+         - with 'traveller ref 2' as @travellerRef2
+     then
+         Set 'reporting ref 10' with "0" + @travellerRef2
+end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelP26 [Parexel] Reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-11 - Initial version
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-ParexelP26 [Parexel] Reporting mappings for extended breaks"
+salience -26
+     when
+         There is a financial 'Container'
+         There is a 'Booking'
+         - with 'company name' in ("Parexel")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+         - with 'traveller ref 3' not empty
+         - with 'traveller ref 3' in ("0", "1", "100", "105", "190") OR 'traveller ref 3' matches "^[A-Z]+$"
+     then
+         Set 'reporting ref 11' with null
+end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelP27 [Parexel] Reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-11 - Initial version
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-ParexelP27 [Parexel] Reporting mappings for extended breaks"
+salience -27
+     when
+         There is a financial 'Container'
+         There is a 'Booking'
+         - with 'company name' in ("Parexel")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+         - with 'traveller ref 3' not empty
+         - with 'traveller ref 3' matches "^[0-9]{5}$"
+         - with 'traveller ref 3' as @travellerRef3
+     then
+         Set 'reporting ref 11' with "0" + @travellerRef3
+end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelP27b [Parexel] Reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-11 - Initial version
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-ParexelP27b [Parexel] Reporting mappings for extended breaks"
+salience -28
+     when
+         There is a financial 'Container'
+         There is a 'Booking'
+         - with 'company name' in ("Parexel")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+         - with 'traveller ref 3' not empty
+         - with 'traveller ref 3' matches "^-[0-9]{4}$"
+         - with 'traveller ref 3' as @travellerRef3
+     then
+         String val = @travellerRef3.substring(1,5);
+         Set 'reporting ref 11' with val
+end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelP28 [Parexel] Reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-11 - Initial version
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-ParexelP28 [Parexel] Reporting mappings for extended breaks"
+salience -29
+     when
+         There is a financial 'Container'
+         There is a 'Booking'
+         - with 'company name' in ("Parexel")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+         - with 'traveller ref 3' not empty
+         - with 'traveller ref 3' matches "^2[0-9]{5}$"
+     then
+         Set 'reporting ref 11' with null
+end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelP29a [Parexel] Reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-11 - Initial version
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-ParexelP29a [Parexel] Reporting mappings for extended breaks"
+salience -30
+     when
+         There is a financial 'Container'
+         There is a 'Booking'
+         - with 'company name' in ("Parexel")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+         - with 'traveller ref 3' not empty
+         - with 'traveller ref 3' matches "^[0-9]{5}[; ][A-Z:]+$"
+         - with 'traveller ref 3' as @travellerRef3
+     then
+         String val = @travellerRef3.substring(0,5);
+         Set 'reporting ref 11' with val
+end
+
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelP29b [Parexel] Reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-11 - Initial version
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-ParexelP29b [Parexel] Reporting mappings for extended breaks"
+salience -31
+     when
+         There is a financial 'Container'
+         There is a 'Booking'
+         - with 'company name' in ("Parexel")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+         - with 'traveller ref 3' not empty
+         - with 'traveller ref 3' matches "^[0-9]{6}[; ][A-Z:]+$"
+         - with 'traveller ref 3' as @travellerRef3
+     then
+         String val = @travellerRef3.substring(0,6);
+         Set 'reporting ref 11' with val
+end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelP30 [Parexel] Reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-11 - Initial version
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-ParexelP30 [Parexel] Reporting mappings for extended breaks"
+salience -32
+     when
+         There is a financial 'Container'
+         There is a 'Booking'
+         - with 'company name' in ("Parexel")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+         - with 'traveller ref 5' not empty
+         - with 'traveller ref 5' in ("NON BILLABLE", "NO BILLABLE","NON BILLABEL", "N", "NON BILLEABLE")
+     then
+         Set 'reporting ref 13' with "N"
+end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelP31 [Parexel] Reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-11 - Initial version
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-ParexelP31 [Parexel] Reporting mappings for extended breaks"
+salience -33
+     when
+         There is a financial 'Container'
+         There is a 'Booking'
+         - with 'company name' in ("Parexel")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+         - with 'traveller ref 5' not empty
+         - with 'traveller ref 5' in ("BILLABLE", "BILLABLE","BILLABEL", "Y", "NON BILLEABLE", "Y\\")
+     then
+         Set 'reporting ref 13' with "Y"
+end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelP28b [Parexel] Reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-11 - Initial version
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-ParexelP28b [Parexel] Reporting mappings for extended breaks"
+salience -34
+     when
+         There is a financial 'Container'
+         There is a 'Booking'
+         - with 'company name' in ("Parexel")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+         - with 'traveller ref 6' not empty
+         - with 'traveller ref 6' matches "^[0-9]{5}$"
+         - with 'traveller ref 6' as @travellerRef6
+     then
+         Set 'reporting ref 13' with "0" + @travellerRef6
+end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelP32 [Parexel] Reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-11 - Initial version
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-ParexelP32 [Parexel] Reporting mappings for extended breaks"
+salience -35
+     when
+         There is a financial 'Container'
+         There is a 'Booking'
+         - with 'company name' in ("Parexel")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+         - with 'traveller ref 6' not empty
+         - with 'traveller ref 6' matches "^[0-9]{7}$"
+         - with 'traveller ref 6' as @travellerRef6
+     then
+         String val = @travellerRef6.substring(0,6);
+         Set 'reporting ref 13'  with val
+end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelP33 [Parexel] Reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-11 - Initial version
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-ParexelP33 [Parexel] Reporting mappings for extended breaks"
+salience -36
+     when
+         There is a financial 'Container'
+         There is a 'Booking'
+         - with 'company name' in ("Parexel")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+         - with 'traveller ref 6' not empty
+         - with 'traveller ref 6' matches "^PXL[0-9]{6}$"
+         - with 'traveller ref 6' as @travellerRef6
+     then
+         String val = @travellerRef6.substring(3,9);
+         Set 'reporting ref 13' with val
+end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelP34 [Parexel] Reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-11 - Initial version
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-ParexelP34 [Parexel] Reporting mappings for extended breaks"
+salience -37
+     when
+         There is a financial 'Container'
+         There is a 'Booking'
+         - with 'company name' in ("Parexel")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+         - with 'traveller ref 6' not empty
+         - with 'traveller ref 6' matches "^[0-9]{6}[A-Z /][0-9]{6}$"
+         - with 'traveller ref 6' as @travellerRef6
+     then
+         String val = @travellerRef6.substring(0,6);
+         Set 'reporting ref 13' with val
+end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelB2 [Parexel] Reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-11 - Initial version
+//--------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-ParexelB2 [Parexel] Reporting mappings for extended breaks"
+salience 500
+     when
+         There is a financial 'Container'
+         There is a 'Booking'
+         - with 'company name' in ("Parexel")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+         - with 'traveller ref 2' as @travellerRef2
+     then
+         Set 'reporting ref 2' with @travellerRef2
+         Set 'traveller ref 10' in 'Traveller' with @travellerRef2
+end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelValidation [Parexel] Validation of reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-10 - Initial version   
+// - 2019-10-16 - Modified the error message from "Break1 is not an existing value" to "Break1 is not recognized or registered" - NGDEFECT-327
+// - 2020-18-02 - Disabled beacuse of the new implemantation of the EBM
+//--------------------------------------------------------------------------------------------------------------------
+// rule "FIN-REP-ParexelValidation [Parexel] Reporting mappings for extended breaks"
+// salience 499
+//      when
+//          There is a financial 'Container'
+//          - with 'submission category' as @submissionCategory
+//          There is a 'Booking'
+//          - with 'company name' not empty
+//          - with 'company name' in ("Parexel")
+//          - with 'company name' as @companyName
+//          There is an 'Invoice'
+//          - with 'date sensitivity' as @ds
+//          There is an 'Invoice Line'
+//          There is an 'Invoice Service'
+//          There is a 'Traveller'
+//          - with 'traveller ref 10' not empty
+//          - with 'traveller ref 10' not exists in "EBM" with date sensitivity @ds filtered by @companyName
+//      then
+//         If @submissionCategory not equals "TCFILES" then
+//             Mark 'traveller ref 2' in 'Traveller' with 'Warning' because "TravellerRef2 is not recognized or registered."
+//         Else
+//           Mark 'traveller ref 2' in 'Traveller' alias "TCTRIPS.BREAK2" with 'Warning' because "BREAK2 is not recognized or registered."
+//         End
+        
+// end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelTraveller [Parexel] Reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-10 - Initial version
+// - 2020-18-02 - Disabled beacuse of the new implemantation of the EBM
+//--------------------------------------------------------------------------------------------------------------------
+// rule "FIN-REP-ParexelTraveller [Parexel] Reporting mappings for extended breaks"
+// salience 498
+//     when
+//          There is a financial 'Container'
+//          There is a 'Booking'
+//          - with 'company name' not empty
+//          - with 'company name' in ("Parexel")
+//          - with 'company name' as @companyName
+//          There is an 'Invoice'
+//          - with 'date sensitivity' as @ds
+//          There is an 'Invoice Line'
+//          There is an 'Invoice Service'
+//          There is a 'Traveller'
+//          - with 'traveller ref 10' not empty
+//          - with 'traveller ref 10' exists in "EBM" with date sensitivity @ds filtered by @companyName
+//          - with 'traveller ref 10' as @travellerRef10
+//      then
+//          Set 'traveller ref 15' in 'Traveller' with translate @travellerRef10 using "EBM" with date sensitivity @ds filtered by @companyName
+// end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelReporting [Parexel] Reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-10 - Initial version
+// - 2020-18-02 - Disabled beacuse of the new implemantation of the EBM
+//--------------------------------------------------------------------------------------------------------------------
+// rule "FIN-REP-ParexelReporting [Parexel] Reporting mappings for extended breaks"
+// salience 497
+//     when
+//          There is a financial 'Container'
+//          There is a 'Booking'
+//          - with 'company name' not empty
+//          - with 'company name' in ("Parexel")
+//          - with 'company name' as @companyName
+//          There is an 'Invoice'
+//          - with 'date sensitivity' as @ds
+//          There is an 'Invoice Line'
+//          There is an 'Invoice Service'
+//          There is a 'Traveller'
+//          - with 'traveller ref 10' not empty
+//          - with 'traveller ref 10' as @travellerRef10
+//          - with 'traveller ref 10' exists in "EBM" with date sensitivity @ds filtered by @companyName
+//          - with 'traveller ref 15' not empty
+//          - with 'traveller ref 15' as @travellerRef15
+//      then
+//          Set 'reporting ref 10' with @travellerRef10
+//          Set 'reporting ref 15' with @travellerRef15
+// end
+
+//--------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelBillable [Parexel] Validation of reporting mappings for extended breaks
+// HISTORY:
+// - 2019-07-10 - Initial version   
+// - 2020-18-02 - Disabled beacuse of the new implemantation of the EBM
+//--------------------------------------------------------------------------------------------------------------------
+// rule "FIN-REP-ParexelBillable [Parexel] Reporting mappings for extended breaks"
+// salience 496
+//      when
+//          There is a financial 'Container'
+//          - with 'submission category' as @submissionCategory
+//          There is a 'Booking'
+//          - with 'company name' not empty
+//          - with 'company name' in ("Parexel")
+//          - with 'company name' as @companyName
+//          There is an 'Invoice'
+//          - with 'date sensitivity' as @ds
+//          There is an 'Invoice Line'
+//          There is an 'Invoice Service'
+//          There is a 'Traveller'
+//          - with 'traveller ref 10' not empty
+//          - with 'traveller ref 10' not exists in "EBM" with date sensitivity @ds filtered by @companyName
+// 		 - with 'traveller ref 13' in ("Yes")
+//      then
+//         Set 'traveller ref 10' in 'Traveller' with ""
+//         Set 'traveller ref 15' in 'Traveller' with ""
+//         Set 'reporting ref 10' with ""
+//         Set 'reporting ref 15' with ""
+// end
+
+// --------------------------------------------------------------------------------------------------------------------
+// RULE: FIN-REP-ParexelEBM [Parexel] Validation of reporting mappings for extended breaks
+// HISTORY:
+// - 2020-02-12 - Initial version 
+// - Created by Hardik, This rule need to be fire at the end. 
+// --------------------------------------------------------------------------------------------------------------------
+rule "FIN-REP-EBM Parexel EBM"
+ salience -99999
+    when
+         There is a financial 'Container'
+         There is a 'Booking'
+          - with 'company name' not empty
+          - with 'company name' in ("Parexel")
+         There is an 'Invoice'
+         There is an 'Invoice Line'
+         There is an 'Invoice Service'
+         There is a 'Traveller'
+     then
+         Standardised reporting ref using EBM
+end
+
+
+
+
